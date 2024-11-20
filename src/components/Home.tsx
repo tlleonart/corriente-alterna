@@ -48,7 +48,7 @@ export default function HomePage() {
                             />
                             <p className="flex items-center justify-center mb-4">
                                 <MapPin className="mr-2" />
-                                Av. del Libertador 4101, Buenos Aires, Argentina
+                                Av. de la Costa Estanislao López 2250, Rosario, Santa Fe
                             </p>
                         </section>
                     </div>

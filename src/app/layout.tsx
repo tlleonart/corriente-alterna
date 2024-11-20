@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Londrina_Solid } from 'next/font/google'
 import "./globals.css";
+import { Analytics } from '@vercel/analytics/next';
 
 const bricolageGrotesque = Londrina_Solid({ subsets: ["latin"], weight: ["400", "100", "300", "900"] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
         className={bricolageGrotesque.className}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );

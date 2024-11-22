@@ -18,10 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleTagManager gtmId="GTM-57CM6WQB" />
       <body
         className={bricolageGrotesque.className}
       >
-        <GoogleTagManager gtmId="GTM-57CM6WQB" />
         {children}
         <Analytics />
       </body>

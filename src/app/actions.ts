@@ -1,9 +1,7 @@
 'use server'
 
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma';
 import nodemailer from 'nodemailer'
-
-const prisma = new PrismaClient()
 
 type ActionResult = {
     success?: boolean;

@@ -17,10 +17,7 @@ const TicketForm: React.FC = () => {
 
         if (result.success) {
             if (typeof window !== 'undefined' && window.fbq) {
-                window.fbq('track', 'CompleteRegistration', {
-                    content_name: 'Solicitud de Ticket',
-                    content_category: 'Registro de Eventos',
-                })
+                window.fbq('track', 'Suscribe')
             }
             setIsSubmitted(true)
         } else {

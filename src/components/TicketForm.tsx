@@ -21,6 +21,7 @@ const TicketForm: React.FC = () => {
             }
             setIsSubmitted(true)
         } else {
+            console.error(`Error intentando suscribir usuario: ${result.error}`)
             setError(result.error || 'Ocurrió un error desconocido.')
         }
     }

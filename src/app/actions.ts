@@ -53,6 +53,8 @@ export async function solicitarTicket(formData: FormData): Promise<ActionResult>
             return { error: 'Este correo electrónico ya está registrado.' }
         }
 
+        console.error(`Error en server action: ${error}`)
+
         return { error: 'Hubo un error al procesar tu solicitud. Inténtalo de nuevo más tarde.' }
     }
 }

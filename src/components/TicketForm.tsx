@@ -16,6 +16,12 @@ const TicketForm: React.FC = () => {
         const result = await solicitarTicket(formData)
 
         if (result.success) {
+            if (typeof window !== 'undefined' && window.fbq) {
+                window.fbq('track', 'CompleteRegistration', {
+                    content_name: 'Solicitud de Ticket',
+                    content_category: 'Registro de Eventos',
+                })
+            }
             setIsSubmitted(true)
         } else {
             setError(result.error || 'Ocurrió un error desconocido.')

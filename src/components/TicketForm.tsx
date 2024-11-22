@@ -1,7 +1,6 @@
 'use client'
 
 import { solicitarTicket } from '@/app/actions'
-import { executeFacebookRequest } from '@/lib/fb'
 import { useState } from 'react'
 
 const TicketForm: React.FC = () => {
@@ -17,7 +16,6 @@ const TicketForm: React.FC = () => {
         const result = await solicitarTicket(formData)
 
         if (result.success) {
-            executeFacebookRequest()
             setIsSubmitted(true)
         } else {
             setError(result.error || 'Ocurrió un error desconocido.')

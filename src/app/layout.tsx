@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Londrina_Solid } from 'next/font/google'
 import "./globals.css";
 import { Analytics } from '@vercel/analytics/next';
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const bricolageGrotesque = Londrina_Solid({ subsets: ["latin"], weight: ["400", "100", "300", "900"] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body
         className={bricolageGrotesque.className}
       >
+        <GoogleTagManager gtmId="GTM-57CM6WQB" />
         {children}
         <Analytics />
       </body>

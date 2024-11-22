@@ -17,7 +17,7 @@ const TicketForm: React.FC = () => {
 
         if (result.success) {
             if (typeof window !== 'undefined' && window.fbq) {
-                window.fbq('track', 'Suscribe')
+                window.fbq('track', 'Subscribe')
             }
             setIsSubmitted(true)
         } else {

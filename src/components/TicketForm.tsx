@@ -1,6 +1,7 @@
 'use client'
 
 import { solicitarTicket } from '@/app/actions'
+import { sendGTMEvent } from '@next/third-parties/google'
 import { useState } from 'react'
 
 const TicketForm: React.FC = () => {
@@ -18,7 +19,10 @@ const TicketForm: React.FC = () => {
         if (result.success) {
             if (typeof window !== 'undefined' && window.fbq) {
                 window.fbq('track', 'Subscribe')
+                sendGTMEvent({ event: 'register' })
             }
+
+
             setIsSubmitted(true)
         } else {
             console.error(`Error intentando suscribir usuario: ${result.error}`)

@@ -38,7 +38,7 @@ const MainContentHome: FC = () => {
                                 <span>|</span>
                                 <a>GLADYSON PANTHER</a>
                             </p>
-                            <p className="text-xl w-full"><a>EXPLANADA MACRO</a> - 14 DIC´ 2024</p>
+                            <p className="text-xl w-full"><a>MUSEO DE LA CIUDAD</a> - 14 DIC´ 2024</p>
                         </section>
                         <TicketButton />
                         <section className="my-16 flex flex-col justify-center">
@@ -49,7 +49,7 @@ const MainContentHome: FC = () => {
                             />
                             <p className="flex items-center justify-center mb-4">
                                 <MapPin className="mr-2" />
-                                Av. de la Costa Estanislao López 2250, Rosario, Santa Fe
+                                Bv. Oroño 2361 - Ingreso por Av. Dante Alighieri, Rosario, Santa Fe
                             </p>
                         </section>
                     </div>

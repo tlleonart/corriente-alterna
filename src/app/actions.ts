@@ -1,7 +1,6 @@
 'use server'
 
 import { prisma } from '@/lib/prisma';
-import nodemailer from 'nodemailer'
 
 type ActionResult = {
     success?: boolean;
@@ -18,31 +17,23 @@ export async function solicitarTicket(formData: FormData): Promise<ActionResult>
 
     try {
         // Intentar crear el ticket en la base de datos
-        await prisma.ticket.create({
-            data: { nombre, email },
-        })
+        const ticket = await prisma.ticket.create({
+            data: { nombre, email, pdfSent: true },
+        });
 
-        const transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: parseInt(process.env.EMAIL_PORT || '587'),
-            secure: process.env.EMAIL_SECURE === 'true',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
-        })
+        // Generar y enviar el PDF a través del endpoint
+        const response = await fetch(`http://localhost:3000/api/generate-pdf`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre, email, id: ticket.id }),
+        });
 
-        // Enviar el correo
-        await transporter.sendMail({
-            from: '"Corriente Alterna" <noreply@corrientealterna.com>',
-            to: email,
-            subject: 'Tu registro para Corriente Alterna',
-            text: `Hola ${nombre},\n\nGracias por registrarte para Corriente Alterna. Tu registro ha sido confirmado.\n\nPronto recibirás tu acreditación. ¡Nos vemos en el festival!`,
-            html: `<p>Hola ${nombre},</p><p>Gracias por registrarte para Corriente Alterna. Tu registro ha sido confirmado.</p><p>Pronto recibirás tu acreditación. ¡Nos vemos en el festival!</p>`,
-        })
+        if (!response.ok) {
+            console.error(`Error al generar el PDF: ${await response.text()}`);
+            return { error: 'Hubo un problema al generar tu acreditación. Inténtalo más tarde.' };
+        }
 
-
-        return { success: true }
+        return { success: true };
     } catch (error) {
         if (
             error instanceof Error &&

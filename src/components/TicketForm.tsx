@@ -7,9 +7,12 @@ import { useState } from 'react'
 const TicketForm: React.FC = () => {
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+
+        setIsLoading(true)
 
         const formData = new FormData(event.currentTarget)
         setError(null)
@@ -23,11 +26,14 @@ const TicketForm: React.FC = () => {
             }
 
 
+            setIsLoading(false)
             setIsSubmitted(true)
         } else {
             console.error(`Error intentando suscribir usuario: ${result.error}`)
             setError(result.error || 'Ocurrió un error desconocido.')
         }
+        setIsLoading(false)
+
     }
 
     if (isSubmitted) {
@@ -65,9 +71,10 @@ const TicketForm: React.FC = () => {
             </div>
             <button
                 type="submit"
-                className="w-full bg-crayola text-lavander font-bold py-2 px-4 hover:bg-orange-600 transition-colors"
+                className="w-full bg-crayola text-lavander font-bold py-2 px-4 hover:bg-orange-600 disabled:bg-gray-600 disabled:hover:none transition-colors"
+                disabled={isLoading}
             >
-                SOLICITAR TICKET
+                {isLoading ? "NO CIERRES EL NAVEGADOR" : "SOLICITAR TICKET"}
             </button>
             {error && <p className="text-red-500">{error}</p>}
         </form>

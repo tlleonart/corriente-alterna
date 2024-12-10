@@ -43,7 +43,7 @@ export async function solicitarTicket(formData: FormData): Promise<ActionResult>
             data: { pdfSent: true },
         });
 
-        return { success: true, message: '¿Acreditación enviada! Revisá tu correo.' };
+        return { success: true, message: '¡Acreditación enviada! Revisá tu correo.' };
     } catch (error) {
         if (
             error instanceof Error &&

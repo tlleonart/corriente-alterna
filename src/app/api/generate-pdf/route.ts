@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import QRCode from 'qrcode';
 import puppeteer from 'puppeteer';
 import nodemailer from 'nodemailer';
-import Chromium from 'chrome-aws-lambda';
-
 // Definir tipos para el cuerpo de la solicitud
 interface GeneratePdfRequestBody {
     nombre: string;
@@ -70,11 +68,9 @@ async function generatePDF(nombre: string, email: string, id: string): Promise<a
 
     // Crear PDF con Puppeteer
     const browser = await puppeteer.launch({
-        args: Chromium.args,
-        executablePath: await Chromium.executablePath,
-        headless: Chromium.headless,
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
-
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: 'load' });
     const pdfBuffer = await page.pdf({ format: 'A4' });

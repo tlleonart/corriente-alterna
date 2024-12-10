@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import QRCode from 'qrcode';
-import puppeteer from 'puppeteer';
 import nodemailer from 'nodemailer';
+import puppeteer from 'puppeteer-core';
+import Chromium from '@sparticuz/chromium-min';
+
 // Definir tipos para el cuerpo de la solicitud
 interface GeneratePdfRequestBody {
     nombre: string;
@@ -68,8 +70,12 @@ async function generatePDF(nombre: string, email: string, id: string): Promise<a
 
     // Crear PDF con Puppeteer
     const browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        headless: Chromium.headless,
+        args: [...Chromium.args, '--no-sandbox', '--disable-setuid-sandbox'],
+        defaultViewport: Chromium.defaultViewport,
+        executablePath: await Chromium.executablePath(
+            `https://github.com/Sparticuz/chromium/releases/download/v129.0.0/chromium-v129.0.0-pack.tar`
+        ),
     });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: 'load' });

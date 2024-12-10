@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import QRCode from 'qrcode';
 import puppeteer from 'puppeteer';
 import nodemailer from 'nodemailer';
-import logo from '../../../../public/ca_logo.png'
+
 // Definir tipos para el cuerpo de la solicitud
 interface GeneratePdfRequestBody {
     nombre: string;

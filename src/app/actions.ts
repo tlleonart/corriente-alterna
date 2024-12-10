@@ -22,7 +22,7 @@ export async function solicitarTicket(formData: FormData): Promise<ActionResult>
         });
 
         // Generar y enviar el PDF a través del endpoint
-        const response = await fetch(`http://localhost:3000/api/generate-pdf`, {
+        const response = await fetch(`https://www.festivalcorrientealterna.com/api/generate-pdf`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nombre, email, id: ticket.id }),

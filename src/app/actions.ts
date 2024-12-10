@@ -18,7 +18,7 @@ export async function solicitarTicket(formData: FormData): Promise<ActionResult>
     try {
         // Intentar crear el ticket en la base de datos
         const ticket = await prisma.ticket.create({
-            data: { nombre, email, pdfSent: true },
+            data: { nombre, email, pdfSent: false },
         });
 
         // Generar y enviar el PDF a través del endpoint
@@ -32,6 +32,11 @@ export async function solicitarTicket(formData: FormData): Promise<ActionResult>
             console.error(`Error al generar el PDF: ${await response.text()}`);
             return { error: 'Hubo un problema al generar tu acreditación. Inténtalo más tarde.' };
         }
+
+        await prisma.ticket.update({
+            where: { id: ticket.id },
+            data: { pdfSent: true },
+        });
 
         return { success: true };
     } catch (error) {

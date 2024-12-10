@@ -18,7 +18,7 @@ export async function solicitarTicket(formData: FormData): Promise<ActionResult>
     try {
         // Intentar crear el ticket en la base de datos
         const ticket = await prisma.ticket.create({
-            data: { nombre, email, pdfSent: false },
+            data: { nombre, email },
         });
 
         // Generar y enviar el PDF a través del endpoint

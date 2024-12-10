@@ -8,6 +8,7 @@ const TicketForm: React.FC = () => {
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [successMsg, setSuccessMsg] = useState('')
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -27,6 +28,7 @@ const TicketForm: React.FC = () => {
 
 
             setIsLoading(false)
+            setSuccessMsg(result.message!)
             setIsSubmitted(true)
         } else {
             console.error(`Error intentando suscribir usuario: ${result.error}`)
@@ -40,7 +42,7 @@ const TicketForm: React.FC = () => {
         return (
             <div className="bg-green-500 text-white p-4 rounded-md">
                 <h2 className="text-2xl font-bold mb-2">¡Registro exitoso!</h2>
-                <p>Revisa tu correo electrónico para la confirmación.</p>
+                <p>{successMsg}</p>
             </div>
         )
     }

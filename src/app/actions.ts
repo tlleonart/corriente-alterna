@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 
 type ActionResult = {
     success?: boolean;
+    message?: string;
     error?: string;
 }
 
@@ -30,7 +31,11 @@ export async function solicitarTicket(formData: FormData): Promise<ActionResult>
 
         if (!response.ok) {
             console.error(`Error al generar el PDF: ${await response.text()}`);
-            return { error: 'Hubo un problema al generar tu acreditación. Inténtalo más tarde.' };
+            return {
+                success: true,
+                message:
+                    'Usuario registrado. Pronto vas a recibir tu acreditación. Si no llega, contacta soporte.',
+            };
         }
 
         await prisma.ticket.update({
@@ -38,7 +43,7 @@ export async function solicitarTicket(formData: FormData): Promise<ActionResult>
             data: { pdfSent: true },
         });
 
-        return { success: true };
+        return { success: true, message: '¿Acreditación enviada! Revisá tu correo.' };
     } catch (error) {
         if (
             error instanceof Error &&
